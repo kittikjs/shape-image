@@ -110,14 +110,14 @@ export default class Image extends Shape {
    * @param {Cursor} cursor
    */
   render(cursor) {
+    const width = this.getWidth();
+    const height = this.getHeight();
     const x = this.getX();
     const y = this.getY();
     const image = this.getImage();
-    const width = this.getWidth();
-    const height = this.getHeight();
-    const isPreserveAspectRatio = this.isPreserveAspectRatio();
+    const preserveAspectRatio = this.isPreserveAspectRatio();
 
-    cursor.moveTo(x, y).image({image, width, height, preserveAspectRatio: isPreserveAspectRatio});
+    cursor.moveTo(x, y).image({image, width, height, preserveAspectRatio});
   }
 
   /**
