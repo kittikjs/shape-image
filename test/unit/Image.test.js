@@ -15,22 +15,6 @@ describe('Shape::Image', () => {
     assert.ok(Image.isBase64(image.getImage()));
   });
 
-  it('Should properly get/set width', () => {
-    let image = new Image();
-
-    assert.equal(image.getWidth(), 'auto');
-    assert.instanceOf(image.setWidth('100px'), Image);
-    assert.equal(image.getWidth(), '100px');
-  });
-
-  it('Should properly get/set height', () => {
-    let image = new Image();
-
-    assert.equal(image.getHeight(), 'auto');
-    assert.instanceOf(image.setHeight('100px'), Image);
-    assert.equal(image.getHeight(), '100px');
-  });
-
   it('Should properly get/set preserveAspectRatio', () => {
     let image = new Image();
 
@@ -47,8 +31,8 @@ describe('Shape::Image', () => {
     mock.expects('moveTo').once().withArgs(10, 10).returns(cursor);
     mock.expects('image').once().withArgs({
       image: 'dGVzdA==',
-      width: 'auto',
-      height: 'auto',
+      width: 15,
+      height: 5,
       preserveAspectRatio: true
     }).returns(cursor);
 
@@ -65,8 +49,8 @@ describe('Shape::Image', () => {
       type: 'Image',
       options: {
         text: '',
-        width: 'auto',
-        height: 'auto',
+        width: 15,
+        height: 5,
         x: 10,
         y: 10,
         background: undefined,
@@ -90,8 +74,8 @@ describe('Shape::Image', () => {
     let image = Image.fromObject(obj);
     assert.instanceOf(image, Image);
     assert.equal(image.getText(), '');
-    assert.equal(image.getWidth(), 'auto');
-    assert.equal(image.getHeight(), 'auto');
+    assert.equal(image.getWidth(), 15);
+    assert.equal(image.getHeight(), 5);
     assert.equal(image.getX(), 20);
     assert.equal(image.getY(), 20);
     assert.isUndefined(image.getBackground());
