@@ -13,16 +13,12 @@ export default class Image extends Shape {
    *
    * @param {Object} [options]
    * @param {String} [options.image] Base64 encoded file or path to image
-   * @param {Number|String} [options.width] Image width
-   * @param {Number|String} [options.height] Image height
    * @param {Boolean} [options.preserveAspectRatio] If true, preserve aspect ratio
    */
   constructor(options = {}) {
     super(options);
 
     this.setImage(options.image);
-    this.setWidth(options.width);
-    this.setHeight(options.height);
     this.setPreserveAspectRatio(options.preserveAspectRatio);
   }
 
@@ -45,44 +41,6 @@ export default class Image extends Shape {
     if (typeof image === 'undefined') return this;
     if (Image.isBase64(image)) return this.set('image', image);
     return this.set('image', fs.readFileSync(path.resolve(image), 'base64'));
-  }
-
-  /**
-   * Get image width.
-   *
-   * @returns {Number|String}
-   */
-  getWidth() {
-    return this.get('width');
-  }
-
-  /**
-   * Set new image width.
-   *
-   * @param {Number|String} [width='auto']
-   * @returns {Shape}
-   */
-  setWidth(width = 'auto') {
-    return this.set('width', width);
-  }
-
-  /**
-   * Get image height.
-   *
-   * @returns {Number|String}
-   */
-  getHeight() {
-    return this.get('height');
-  }
-
-  /**
-   * Set new image height.
-   *
-   * @param {Number|String} [height='auto']
-   * @returns {Shape}
-   */
-  setHeight(height = 'auto') {
-    return this.set('height', height);
   }
 
   /**
@@ -130,8 +88,6 @@ export default class Image extends Shape {
 
     Object.assign(obj.options, {
       image: this.getImage(),
-      width: this.getWidth(),
-      height: this.getHeight(),
       preserveAspectRatio: this.isPreserveAspectRatio()
     });
 
