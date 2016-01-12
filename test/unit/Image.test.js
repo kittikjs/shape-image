@@ -62,27 +62,24 @@ describe('Shape::Image', () => {
     let obj = image.toObject();
 
     assert.deepEqual(obj, {
-      name: 'Image',
+      type: 'Image',
       options: {
         text: '',
         width: 'auto',
         height: 'auto',
         x: 10,
         y: 10,
-        alignX: 'none',
-        alignY: 'none',
-        image: 'dGVzdA==',
-        preserveAspectRatio: true,
         background: undefined,
         foreground: undefined,
-        animation: undefined
+        image: 'dGVzdA==',
+        preserveAspectRatio: true
       }
     });
   });
 
   it('Should properly create Image from object', () => {
     let obj = {
-      name: 'Image',
+      type: 'Image',
       options: {
         x: 20,
         y: 20,
@@ -92,11 +89,15 @@ describe('Shape::Image', () => {
 
     let image = Image.fromObject(obj);
     assert.instanceOf(image, Image);
-    assert.equal(image.getX(), 20);
-    assert.equal(image.getY(), 20);
+    assert.equal(image.getText(), '');
     assert.equal(image.getWidth(), 'auto');
     assert.equal(image.getHeight(), 'auto');
+    assert.equal(image.getX(), 20);
+    assert.equal(image.getY(), 20);
+    assert.isUndefined(image.getBackground());
+    assert.isUndefined(image.getForeground());
     assert.equal(image.getImage(), 'dGVzdA==');
+    assert.ok(image.isPreserveAspectRatio());
   });
 
   it('Should properly check if string isBase64', () => {
