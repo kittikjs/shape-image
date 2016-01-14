@@ -29,7 +29,7 @@ Include in your project:
 import Image from 'kittik-shape-image';
 import { Cursor } from 'kittik-cursor';
 
-Image.create({image: 'filename.png'}).render(cursor);
+Image.create({image: 'filename.png'}).render(Cursor.create());
 ```
 
 ## License
