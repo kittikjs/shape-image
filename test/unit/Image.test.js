@@ -5,7 +5,7 @@ import Image from '../../src/Image';
 
 describe('Shape::Image', () => {
   it('Should properly get/set image', () => {
-    let image = new Image();
+    const image = new Image();
 
     assert.notOk(image.getImage());
     assert.instanceOf(image.setImage('dGVzdA=='), Image);
@@ -16,7 +16,7 @@ describe('Shape::Image', () => {
   });
 
   it('Should properly get/set preserveAspectRatio', () => {
-    let image = new Image();
+    const image = new Image();
 
     assert.ok(image.isPreserveAspectRatio());
     assert.instanceOf(image.setPreserveAspectRatio(false), Image);
@@ -24,9 +24,9 @@ describe('Shape::Image', () => {
   });
 
   it('Should properly render the shape', () => {
-    let cursor = new Cursor();
-    let mock = sinon.mock(cursor);
-    let image = new Image({image: 'dGVzdA=='});
+    const cursor = new Cursor();
+    const mock = sinon.mock(cursor);
+    const image = new Image({image: 'dGVzdA=='});
 
     mock.expects('moveTo').once().withArgs(10, 10).returns(cursor);
     mock.expects('image').once().withArgs({
@@ -42,8 +42,8 @@ describe('Shape::Image', () => {
   });
 
   it('Should properly serialize shape to object', () => {
-    let image = new Image({image: 'dGVzdA=='});
-    let obj = image.toObject();
+    const image = new Image({image: 'dGVzdA=='});
+    const obj = image.toObject();
 
     assert.deepEqual(obj, {
       type: 'Image',
@@ -62,7 +62,7 @@ describe('Shape::Image', () => {
   });
 
   it('Should properly create Image from object', () => {
-    let obj = {
+    const obj = {
       type: 'Image',
       options: {
         x: 20,
@@ -71,7 +71,7 @@ describe('Shape::Image', () => {
       }
     };
 
-    let image = Image.fromObject(obj);
+    const image = Image.fromObject(obj);
     assert.instanceOf(image, Image);
     assert.equal(image.getText(), '');
     assert.equal(image.getWidth(), 15);
