@@ -6,9 +6,9 @@ const shape = require('../lib/Image').create({
   image: './examples/nodejs.png',
   x: 'center',
   y: 'middle',
-  width: '40%',
-  height: '20%',
-  preserveAspectRatio: true
+  width: 10,
+  height: 5,
+  preserveAspectRatio: false
 });
 
 shape.render(cursor);
