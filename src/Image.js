@@ -11,12 +11,13 @@ export default class Image extends Shape {
   /**
    * Creates new Image instance.
    *
+   * @param {Cursor} cursor Cursor instance
    * @param {Object} [options]
    * @param {String} [options.image] Base64 encoded file or path to image
    * @param {Boolean} [options.preserveAspectRatio] If true, preserve aspect ratio
    */
-  constructor(options = {}) {
-    super(options);
+  constructor(cursor, options = {}) {
+    super(cursor, options);
 
     this.setImage(options.image);
     this.setPreserveAspectRatio(options.preserveAspectRatio);
@@ -38,8 +39,9 @@ export default class Image extends Shape {
    * @returns {Shape}
    */
   setImage(image) {
-    if (typeof image === 'undefined') return this;
+    if (!image) return this;
     if (Image.isBase64(image)) return this.set('image', image);
+
     return this.set('image', fs.readFileSync(path.resolve(image), 'base64'));
   }
 
@@ -65,17 +67,21 @@ export default class Image extends Shape {
   /**
    * Renders the shape.
    *
-   * @param {Cursor} cursor
+   * @returns {Image}
    */
-  render(cursor) {
+  render() {
+    const cursor = this.getCursor();
     const width = this.getWidth();
     const height = this.getHeight();
     const x = this.getX();
     const y = this.getY();
     const image = this.getImage();
     const preserveAspectRatio = this.isPreserveAspectRatio();
+    const args = `width=${width};height=${height};preserveAspectRatio=${preserveAspectRatio ? 1 : 0};inline=1`;
 
-    cursor.moveTo(x, y).image({image, width, height, preserveAspectRatio});
+    cursor._stream.write(`\u001b[${y + 1};${x + 1}H\u001b]1337;File=${args}:${image}^G`);
+
+    return this;
   }
 
   /**
@@ -84,11 +90,11 @@ export default class Image extends Shape {
    * @returns {{name, options}|*}
    */
   toObject() {
-    let obj = super.toObject();
+    const obj = super.toObject();
 
     Object.assign(obj.options, {
-      image: this.getImage(),
-      preserveAspectRatio: this.isPreserveAspectRatio()
+      image: this.get('image'),
+      preserveAspectRatio: this.get('preserveAspectRatio')
     });
 
     return obj;
