@@ -1,8 +1,8 @@
 "use strict";
 
-const cursor = require('kittik-cursor').create().resetTTY();
-const shape = require('../lib/Image').create({image: './examples/nodejs.png'});
+const cursor = require('kittik-cursor').create().reset();
+const shape = require('../lib/Image').create(cursor, {image: './examples/nodejs.png'});
 
-shape.render(cursor);
+shape.render();
 
 cursor.flush();

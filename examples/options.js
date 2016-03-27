@@ -1,8 +1,8 @@
 "use strict";
 
 const fs = require('fs');
-const cursor = require('kittik-cursor').create().resetTTY();
-const shape = require('../lib/Image').create({
+const cursor = require('kittik-cursor').create().reset();
+const shape = require('../lib/Image').create(cursor, {
   image: './examples/nodejs.png',
   x: 'center',
   y: 'middle',
@@ -11,6 +11,6 @@ const shape = require('../lib/Image').create({
   preserveAspectRatio: false
 });
 
-shape.render(cursor);
+shape.render();
 
 cursor.flush();
