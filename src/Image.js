@@ -5,16 +5,27 @@ import fs from 'fs';
 /**
  * Implements support for Image drawing in terminal.
  *
+ * @extends {Shape}
  * @since 1.0.0
  */
 export default class Image extends Shape {
   /**
    * Creates new Image instance.
+   * Worth noting, that Image can be rendered only in iTerm 3.
+   * Applies immediately, without caching in virtual terminal in {@link Cursor}.
    *
+   * @constructor
    * @param {Cursor} cursor Cursor instance
-   * @param {Object} [options]
+   * @param {Object} [options] Options object
    * @param {String} [options.image] Base64 encoded file or path to image
    * @param {Boolean} [options.preserveAspectRatio] If true, preserve aspect ratio
+   * @example
+   * Image.create(cursor, {
+   *   x: 'center',
+   *   y: 'middle',
+   *   image: 'my-image.png',
+   *   preserveAspectRatio: true
+   * });
    */
   constructor(cursor, options = {}) {
     super(cursor, options);
@@ -36,7 +47,10 @@ export default class Image extends Shape {
    * Set image to the shape.
    *
    * @param {String} image Can be path to the image or base64 encoded image
-   * @returns {Shape}
+   * @returns {Image}
+   * @example
+   * image.setShape('base64');
+   * image.setShape('./my-image.png');
    */
   setImage(image) {
     if (!image) return this;
@@ -58,7 +72,7 @@ export default class Image extends Shape {
    * Set preserve aspect ratio.
    *
    * @param {Boolean} [isPreserveAspectRatio=true] If false, not preserves aspect ratio in the image
-   * @returns {Shape}
+   * @returns {Image}
    */
   setPreserveAspectRatio(isPreserveAspectRatio = true) {
     return this.set('preserveAspectRatio', isPreserveAspectRatio);
@@ -67,6 +81,7 @@ export default class Image extends Shape {
   /**
    * Renders the shape.
    *
+   * @override
    * @returns {Image}
    */
   render() {
@@ -87,7 +102,7 @@ export default class Image extends Shape {
   /**
    * Serializes shape to the object representation.
    *
-   * @returns {{name, options}|*}
+   * @returns {Object}
    */
   toObject() {
     const obj = super.toObject();
@@ -103,6 +118,7 @@ export default class Image extends Shape {
   /**
    * Check if string is base64 encoded string.
    *
+   * @static
    * @param {String} string
    * @returns {Boolean}
    */
