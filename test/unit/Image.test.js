@@ -57,8 +57,8 @@ describe('Shape::Image', () => {
         height: 5,
         x: 10,
         y: 10,
-        background: false,
-        foreground: false,
+        background: 'none',
+        foreground: 'none',
         image: 'dGVzdA==',
         preserveAspectRatio: true
       }
@@ -83,8 +83,8 @@ describe('Shape::Image', () => {
     assert.equal(image.getHeight(), 5);
     assert.equal(image.getX(), 20);
     assert.equal(image.getY(), 20);
-    assert.notOk(image.getBackground());
-    assert.notOk(image.getForeground());
+    assert.equal(image.getBackground(), 'none');
+    assert.equal(image.getForeground(), 'none');
     assert.equal(image.getImage(), 'dGVzdA==');
     assert.ok(image.isPreserveAspectRatio());
   });
