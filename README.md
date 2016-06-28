@@ -13,7 +13,13 @@
 ![dependencies](https://img.shields.io/david/kittikjs/shape-image.svg)
 ![dev dependencies](https://img.shields.io/david/dev/kittikjs/shape-image.svg)
 
-Image shape for Kittik slides
+Image shape for Kittik slides.
+
+__WARNING__: it requires experimental features of a terminal and I'm not guarantee it will work for you.
+
+| Examples |
+| -------- |
+| ![kittik](https://cloud.githubusercontent.com/assets/3625244/16410206/122264e0-3d2a-11e6-86ea-71ce9a26955c.gif) |
 
 ## Getting Started
 
@@ -31,6 +37,12 @@ import Cursor from 'kittik-cursor';
 
 Image.create(Cursor.create(), {image: 'filename.png'}).render();
 ```
+
+There is not a lot options you can pass in, for more information take a look into API declaration.
+
+## API
+
+API declaration is [here](./API.md).
 
 ## License
 
